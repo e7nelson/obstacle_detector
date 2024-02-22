@@ -123,13 +123,15 @@ void ScansMerger::frontScanCallback(const sensor_msgs::LaserScan::ConstPtr front
   front_scan_received_ = true;
   front_scan_error_ = false;
 
-  if (rear_scan_received_ || rear_scan_error_)
+  // don't wait for rear scan
+  // if (rear_scan_received_ || rear_scan_error_)
     publishMessages();
-  else
-    rear_scan_error_ = true;
+    // else
+    // rear_scan_error_ = true;
 }
 
 void ScansMerger::rearScanCallback(const sensor_msgs::LaserScan::ConstPtr rear_scan) {
+    /*
   try {
     tf_ls_.waitForTransform(rear_scan->header.frame_id, p_fixed_frame_id_,
                                rear_scan->header.stamp + ros::Duration().fromSec(rear_scan->ranges.size() * rear_scan->time_increment), ros::Duration(0.05));
@@ -139,14 +141,16 @@ void ScansMerger::rearScanCallback(const sensor_msgs::LaserScan::ConstPtr rear_s
     rear_scan_error_ = true;
     return;
   }
-
+    */
+    
   rear_scan_received_ = true;
   rear_scan_error_ = false;
-
+  /*
   if (front_scan_received_ || front_scan_error_)
     publishMessages();
   else
     front_scan_error_ = true;
+    */
 }
 
 void ScansMerger::publishMessages() {
