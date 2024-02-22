@@ -34,6 +34,7 @@
  */
 
 #include "obstacle_detector/scans_merger.h"
+#include <ros/console.h>
 
 using namespace obstacle_detector;
 using namespace std;
@@ -110,6 +111,7 @@ bool ScansMerger::updateParams(std_srvs::Empty::Request &req, std_srvs::Empty::R
 }
 
 void ScansMerger::frontScanCallback(const sensor_msgs::LaserScan::ConstPtr front_scan) {
+    ROS_DEBUG("FRONT SCAN CALLBACK");
   try {
     tf_ls_.waitForTransform(front_scan->header.frame_id, p_fixed_frame_id_,
                             front_scan->header.stamp + ros::Duration().fromSec(front_scan->ranges.size() * front_scan->time_increment), ros::Duration(0.05));
@@ -131,6 +133,7 @@ void ScansMerger::frontScanCallback(const sensor_msgs::LaserScan::ConstPtr front
 }
 
 void ScansMerger::rearScanCallback(const sensor_msgs::LaserScan::ConstPtr rear_scan) {
+    ROS_DEBUG("REAR SCAN CALLBACK");
     /*
   try {
     tf_ls_.waitForTransform(rear_scan->header.frame_id, p_fixed_frame_id_,
@@ -154,6 +157,7 @@ void ScansMerger::rearScanCallback(const sensor_msgs::LaserScan::ConstPtr rear_s
 }
 
 void ScansMerger::publishMessages() {
+    ROS_DEBUG("PUBLISHING MESSAGES");
   ros::Time now = ros::Time::now();
 
   vector<float> ranges;
