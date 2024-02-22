@@ -198,6 +198,7 @@ void ScansMerger::publishMessages() {
     }
   }
 
+      /*
   if (!rear_scan_error_) {
     try {
       tf_ls_.waitForTransform(p_target_frame_id_, now, rear_pcl_.header.frame_id, rear_pcl_.header.stamp, p_fixed_frame_id_, ros::Duration(0.05));
@@ -229,7 +230,7 @@ void ScansMerger::publishMessages() {
       }
     }
   }
-
+      */
   if (p_publish_scan_) {
     sensor_msgs::LaserScanPtr scan_msg(new sensor_msgs::LaserScan);
 
