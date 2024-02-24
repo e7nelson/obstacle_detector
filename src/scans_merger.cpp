@@ -49,7 +49,7 @@ ScansMerger::ScansMerger(ros::NodeHandle& nh, ros::NodeHandle& nh_local) : nh_(n
   front_scan_error_ = false;
   rear_scan_error_ = false;
 
-  params_srv_ = nh_local_.advertiseService("params", &ScansMerger::updateParams, this);
+   params_srv_ = nh_local_.advertiseService("params", &ScansMerger::updateParams, this);
 
   initialize();
 }
@@ -74,6 +74,7 @@ ScansMerger::~ScansMerger() {
 }
 
 bool ScansMerger::updateParams(std_srvs::Empty::Request &req, std_srvs::Empty::Response &res) {
+    std::cout << "UPDATE PARAMS" << std::endl;
   bool prev_active = p_active_;
 
   nh_local_.param<bool>("active", p_active_, true);
@@ -95,11 +96,12 @@ bool ScansMerger::updateParams(std_srvs::Empty::Request &req, std_srvs::Empty::R
 
   if (p_active_ != prev_active) {
     if (p_active_) {
+        std::cout << "starting callbacks" << std::endl;
       front_scan_sub_ = nh_.subscribe("sirab/ridgeback/front/scan", 10, &ScansMerger::frontScanCallback, this);
       rear_scan_sub_ = nh_.subscribe("rear_scan", 10, &ScansMerger::rearScanCallback, this);
       scan_pub_ = nh_.advertise<sensor_msgs::LaserScan>("scan", 10);
       pcl_pub_ = nh_.advertise<sensor_msgs::PointCloud>("pcl", 10);
-    }
+    
     else {
       front_scan_sub_.shutdown();
       rear_scan_sub_.shutdown();
