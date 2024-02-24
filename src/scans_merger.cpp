@@ -98,13 +98,13 @@ bool ScansMerger::updateParams(std_srvs::Empty::Request &req, std_srvs::Empty::R
     if (p_active_) {
         std::cout << "starting callbacks" << std::endl;
       front_scan_sub_ = nh_.subscribe("sirab/ridgeback/front/scan", 10, &ScansMerger::frontScanCallback, this);
-      rear_scan_sub_ = nh_.subscribe("rear_scan", 10, &ScansMerger::rearScanCallback, this);
+      // rear_scan_sub_ = nh_.subscribe("rear_scan", 10, &ScansMerger::rearScanCallback, this);
       scan_pub_ = nh_.advertise<sensor_msgs::LaserScan>("scan", 10);
       pcl_pub_ = nh_.advertise<sensor_msgs::PointCloud>("pcl", 10);
     }
     else {
       front_scan_sub_.shutdown();
-      rear_scan_sub_.shutdown();
+      // rear_scan_sub_.shutdown();
       scan_pub_.shutdown();
       pcl_pub_.shutdown();
     }
