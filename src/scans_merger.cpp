@@ -124,6 +124,7 @@ void ScansMerger::frontScanCallback(const sensor_msgs::LaserScan::ConstPtr front
   }
   catch (tf::TransformException& ex) {
     front_scan_error_ = true;
+    std::cout << "    front scan error" << std::endl;
     return;
   }
 
