@@ -6,7 +6,7 @@
   <node name="scanner_base_to_front_scanner" pkg="tf2_ros" type="static_transform_publisher" args="0.23565 -0.0005 0.06795 0 0 0 robot front_scanner"/>
   <node name="scanner_base_to_rear_scanner" pkg="tf2_ros" type="static_transform_publisher" args="-0.23832 0.00542 0.09888 3.141592 0 0 robot rear_scanner"/>
 
-  <node name="scans_merger" pkg="obstacle_detector" type="scans_merger_node">
+<!--  <node name="scans_merger" pkg="obstacle_detector" type="scans_merger_node">
     <param name="active"            value="true"/>
     <param name="publish_scan"      value="false"/>
     <param name="publish_pcl"       value="true"/>
@@ -23,7 +23,7 @@
 
     <param name="fixed_frame_id"   value="map"/>
     <param name="target_frame_id"   value="robot"/>
-  </node>
+  </node>-->
 
   <node name="obstacle_extractor" pkg="obstacle_detector" type="obstacle_extractor_node">
     <param name="active"               value="true"/>
