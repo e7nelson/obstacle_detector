@@ -36,6 +36,7 @@
 #include "obstacle_detector/obstacle_extractor.h"
 #include "obstacle_detector/utilities/figure_fitting.h"
 #include "obstacle_detector/utilities/math_utilities.h"
+#include <iostream>
 
 using namespace std;
 using namespace obstacle_detector;
@@ -130,6 +131,7 @@ bool ObstacleExtractor::updateParams(std_srvs::Empty::Request &req, std_srvs::Em
 }
 
 void ObstacleExtractor::scanCallback(const sensor_msgs::LaserScan::ConstPtr scan_msg) {
+    std::cout << "scan callback!" << std::endl;
   base_frame_id_ = scan_msg->header.frame_id;
   stamp_ = scan_msg->header.stamp;
 
@@ -156,6 +158,8 @@ void ObstacleExtractor::pclCallback(const sensor_msgs::PointCloud::ConstPtr pcl_
 }
 
 void ObstacleExtractor::processPoints() {
+    
+    std::cout << "process points!" << std::endl;
   segments_.clear();
   circles_.clear();
 
@@ -403,6 +407,7 @@ bool ObstacleExtractor::compareCircles(const Circle& c1, const Circle& c2, Circl
 }
 
 void ObstacleExtractor::publishObstacles() {
+        std::cout << "publish obstacles!" << std::endl;
   obstacle_detector::ObstaclesPtr obstacles_msg(new obstacle_detector::Obstacles);
   obstacles_msg->header.stamp = stamp_;
 
