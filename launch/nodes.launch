@@ -8,7 +8,6 @@
 
   <env name="ROSCONSOLE_CONFIG_FILE"
        value="$(find obstacle_detector)/custom_rosconsole.conf"/>
-  <node pkg="obstacle_detector" type="obstacle_extractor_node" name="obstacle_extractor" output="screen"/>
 
 <!--  <node name="scans_merger" pkg="obstacle_detector" type="scans_merger_node">
     <param name="active"            value="true"/>
@@ -29,7 +28,7 @@
     <param name="target_frame_id"   value="robot"/>
   </node>-->
 
-  <node name="obstacle_extractor" pkg="obstacle_detector" type="obstacle_extractor_node">
+  <node name="obstacle_extractor" pkg="obstacle_detector" type="obstacle_extractor_node" output="screen">
     <param name="active"               value="true"/>
     <param name="use_scan"             value="true"/>
     <param name="use_pcl"              value="false"/>
