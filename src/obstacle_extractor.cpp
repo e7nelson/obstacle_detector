@@ -107,9 +107,10 @@ bool ObstacleExtractor::updateParams(std_srvs::Empty::Request &req, std_srvs::Em
 
   if (p_active_ != prev_active) {
     if (p_active_) {
-      if (p_use_scan_)
+        if (p_use_scan_) {
           ROS_DEBUG("SUBSCRIBING TO FRONT SCAN");
         scan_sub_ = nh_.subscribe("/sirab/ridgeback/front/scan", 10, &ObstacleExtractor::scanCallback, this);
+        }
       else if (p_use_pcl_)
         pcl_sub_ = nh_.subscribe("pcl", 10, &ObstacleExtractor::pclCallback, this);
 
