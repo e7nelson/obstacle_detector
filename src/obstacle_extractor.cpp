@@ -37,13 +37,33 @@
 #include "obstacle_detector/utilities/figure_fitting.h"
 #include "obstacle_detector/utilities/math_utilities.h"
 #include <ros/console.h>
-#include "obstacle_detector/identity.h"
 
 using namespace std;
 using namespace obstacle_detector;
 
+string sira_name;
+string sira_follower;
+string sira_leader;
+string sira_leader_frame;
+string sira_follower_frame;
 
 ObstacleExtractor::ObstacleExtractor(ros::NodeHandle& nh, ros::NodeHandle& nh_local) : nh_(nh), nh_local_(nh_local) {
+
+  char sira_name_primitive[1024];
+  gethostname(sira_name_primitive, 1024);
+  sira_name = string(sira_name_primitive);
+  if (sira_name == string("sirab-T15")) {
+      sira_follower = string("sirab");
+      sira_leader = string("sirar");
+      sira_leader_frame = string("ridgeRframe_from_marker_left");
+      sira_follower_frame = string("ridgeBframe");
+  }
+  else {
+      sira_follower = string("sirar");
+      sira_leader = string("sirab");
+      sira_leader_frame = string("ridgeBframe_from_marker_right");
+      sira_follower_frame = string("ridgeRframe");
+  }
   p_active_ = false;
 
   params_srv_ = nh_local_.advertiseService("params", &ObstacleExtractor::updateParams, this);
@@ -111,7 +131,7 @@ bool ObstacleExtractor::updateParams(std_srvs::Empty::Request &req, std_srvs::Em
     if (p_active_) {
         if (p_use_scan_) {
           ROS_DEBUG("SUBSCRIBING TO FRONT SCAN");
-        scan_sub_ = nh_.subscribe("/" + sira_name + "/ridgeback/front/scan", 10, &ObstacleExtractor::scanCallback, this);
+        scan_sub_ = nh_.subscribe("/" + sira_follower + "/ridgeback/front/scan", 10, &ObstacleExtractor::scanCallback, this);
         }
       else if (p_use_pcl_)
         pcl_sub_ = nh_.subscribe("pcl", 10, &ObstacleExtractor::pclCallback, this);
